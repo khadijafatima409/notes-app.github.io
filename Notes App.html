@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/9ad3f708c4.js" crossorigin="anonymous"></script>	
+    <title>Notes App</title>
+    <style>
+        .add1
+        {
+            height: 6vh;
+            width: 10%;
+            box-shadow: 2px 3px 15px 5px saddlebrown;
+            background-color: salmon;
+            position: absolute;
+            z-index: 3;
+            right: 0%;
+            top: 5%;
+        }
+        body
+        {
+            background-color: teal;
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap;
+        }
+        .notes
+        {
+            height: 55vh;
+            width:30.5%;
+            background-color: white;
+            margin-left: 2%;
+            margin-top: 5%;
+            position: relative;
+            
+        }
+        .head
+        {
+            height: 15%;
+            width: 99.5%;
+            border:1px solid black;
+            background-color: antiquewhite;
+        }
+        .save,.edt,.del
+        {
+            font-size: 22px;
+            position: absolute;
+        }
+        .del
+        {
+            right: 3%;
+            top: 4%;
+            /* border: 1px solid red; */
+            /* padding: 5px; */
+        }
+        .save
+        {
+            right: 11%;
+            top: 4%;
+        }
+        .edt
+        {
+            right: 18%;
+            top: 4%;
+        }
+        
+
+        .text
+        {
+            height: 83.5%;
+            width: 98.5%;
+            border: 1px solid;
+            background-color: cyan;
+        }
+
+      
+
+        
+        .opac
+        {
+            height: 83.5%;
+            width: 98.5%;
+            background-color: grey;
+            top: 15%;
+            color: white;
+            
+        }
+        .hidediv{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="add1" >+Add Notes</button>
+    
+</body>
+<!-- <script src="script.js"></script> -->
+<script>
+
+let addbtn=document.querySelector(".add1")
+addbtn.onclick=()=>{
+    addnotes()
+}
+    function addnotes(dt=""){
+ 
+    let notes=document.createElement("div")
+    notes.classList.add("notes")
+    document.body.appendChild(notes)
+
+    
+    notes.innerHTML=`
+                    <div class="head">
+                        <i class="fas fa-edit edt"></i>
+                        <i class="far fa-trash-alt del"></i>
+                    </div>
+                        <textarea name="" id="" cols="30" rows="10" class="text"></textarea>
+                        <div class="opac hidediv"></div>
+                    `
+        let del=notes.querySelector(".del")
+            del.onclick=()=>
+                {
+                    notes.remove()
+                    local()
+
+                }
+
+        let edt=notes.querySelector(".edt")
+        let txt=notes.querySelector(".text")
+        let op=notes.querySelector(".opac")
+        op.textContent=dt
+        txt.value=dt
+            edt.onclick=()=>
+                {
+                    op.classList.toggle("hidediv")
+                    console.log(op)
+                    txt.classList.toggle("hidediv")
+                    var val=txt.value
+                    local()
+                }
+                txt.oninput=()=>{
+                    op.textContent=txt.value
+                    // local()
+
+
+                }
+              }
+
+              function local(){
+                  let t=document.querySelectorAll("textarea")
+                  let arr=[]
+                  t.forEach(a=>{
+                      arr.push(a.value)
+
+                  })
+                  console.log(arr);
+                  localStorage.setItem("item",JSON.stringify(arr))
+ 
+
+              }
+              let data=JSON.parse(localStorage.getItem("item"))
+              console.log(data,"data");
+               if(data){
+                   data.forEach(dt=>{
+                       console.log(dt,"");
+                       
+                       addnotes(dt)
+                   })
+
+               }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     let btn =document.querySelector(".add1")
+//     btn.onclick=()=>{
+//         let notes=document.createElement("div")
+//         notes.classList.add("notes")
+//         notes.innerHTML=`
+//        <div class="head">
+        
+//         <i class="fas fa-edit edt"></i>
+//         <i class="far fa-trash-alt del"></i>
+//         </div>
+//        <textarea name="" id="" cols="30" rows="10" class="text"></textarea>
+//        <div class="opac hidediv"></div>
+// `
+         
+//         let del=notes.querySelector(".del")
+//         let edit=notes.querySelector(".edt")
+//         let op=notes.querySelector(".opac")
+//         let txt=notes.querySelector(".text")
+
+
+
+    
+        
+        
+
+//          del.onclick=()=>{
+//              notes.remove()
+             
+             
+//          }
+
+//          edit.onclick=()=>{
+//              op.classList.toggle("hidediv")
+//              txt.classList.toggle("hidediv")  
+//          }
+
+//          txt.onchange=()=>{
+//              console.log("hello");
+             
+//              op.textContent=txt.value
+//          }
+
+//         document.body.appendChild(notes)
+//         // notes.appendChild(btn1)
+
+    
+        
+//     }
+
+</script>
+</html>
